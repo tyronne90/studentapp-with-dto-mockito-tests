@@ -16,13 +16,14 @@ public class StudentServiceImpl implements StudentService{
 	@Autowired
 	StudentRepo studentRepo;
 	
+
 	@Override
 	public List<Student> getAllStudent() {
 		return studentRepo.findAll();
 	}
 
 	@Override
-	public Object saveStudent(Student student) {
+	public Student saveStudent(Student student) {
 		return studentRepo.save(student);
 	}
 
@@ -32,7 +33,7 @@ public class StudentServiceImpl implements StudentService{
 	}
 
 	@Override
-	public Object updateStudent(Student student) {
+	public Student updateStudent(Student student) {
 		if(student.getId()!=null) {
 			studentRepo.save(student);
 		}
@@ -40,7 +41,7 @@ public class StudentServiceImpl implements StudentService{
 	}
 
 	@Override
-	public Object deleteStudent(Long id) {
+	public Student deleteStudent(Long id) {
 		if(id!=null)
 			studentRepo.deleteById(id);
 		return null;

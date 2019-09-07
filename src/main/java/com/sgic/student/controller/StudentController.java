@@ -17,42 +17,40 @@ import org.springframework.web.bind.annotation.RestController;
 import com.sgic.student.controller.dto.StudentDto;
 import com.sgic.student.controller.mapper.StudentMapper;
 
-
 @RestController
 @RequestMapping("/api")
 public class StudentController {
 	@Autowired
 	private StudentMapper mapper;
 
-	@GetMapping("/")	    
-	 public String home() {
-	        return "Hello";
-	    }
-	 
-	 @PostMapping("/student")
-	 public Object saveStudent(@Valid @RequestBody StudentDto studentDto){
-		 return mapper.saveStudent(studentDto);
-	 }
-	 
-	 @GetMapping("/students")
-	 public List<StudentDto> getAllStudent(){
-		 return mapper.getAllStudent();
-	 }
-	 
-	 @GetMapping("/student/{id}")
-	 public StudentDto getOneStudent(@PathVariable("id") Long id){
-		 return mapper.findOneStudent(id);
-	 }
+	@GetMapping("/")
+	public String home() {
+		return "Hello";
+	}
 
-	 @PutMapping("/student")
-	 public Object updateStudent(@Valid @RequestBody StudentDto studentDto) {
+	@PostMapping("/student")
+	public Object saveStudent(@Valid @RequestBody StudentDto studentDto) {
+		return mapper.saveStudent(studentDto);
+	}
+
+	@GetMapping("/students")
+	public List<StudentDto> getAllStudent() {
+		return mapper.getAllStudent();
+	}
+
+	@GetMapping("/student/{id}")
+	public StudentDto getOneStudent(@PathVariable("id") Long id) {
+		return mapper.findOneStudent(id);
+	}
+
+	@PutMapping("/student")
+	public Object updateStudent(@Valid @RequestBody StudentDto studentDto) {
 		return mapper.updateStudent(studentDto);
-	 }
-	 
-	 @DeleteMapping("/student/{id}")
-	 public Object deleteStudent(@PathVariable("id") Long id) {
+	}
+
+	@DeleteMapping("/student/{id}")
+	public Object deleteStudent(@PathVariable("id") Long id) {
 		return mapper.deleteStudent(id);
-	 }
-	 
-	 
+	}
+
 }

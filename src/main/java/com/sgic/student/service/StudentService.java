@@ -7,9 +7,9 @@ import com.sgic.student.entity.Student;
 public interface StudentService {
 	
 	public List<Student> getAllStudent();
-	public Object saveStudent(Student student);
+	public Student saveStudent(Student student);
 	public Student findOneStudent(Long id);
-	public Object updateStudent(Student student);
-	public Object deleteStudent(Long id);
+	public Student updateStudent(Student student);
+	public Student deleteStudent(Long id);
 	
 }

@@ -1,10 +1,15 @@
 package com.sgic.student.controller;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +35,7 @@ import com.sgic.student.controller.mapper.StudentMapper;
 @WebMvcTest(StudentController.class)
 //@ContextConfiguration(classes= {StudentAppWithDtoApplication.class})
 public class StudentControllerApiTest {
+	
 	@Autowired
 	MockMvc mockMvc;
 	
@@ -62,8 +68,10 @@ public class StudentControllerApiTest {
 	
 	@Test
 	public void saveStudentApiTest() throws Exception {
-		mockMvc.perform(MockMvcRequestBuilders.post("/api/student").content(asJsonString(new StudentDto("jim", 22)))
-				.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)).andDo(print())
+		mockMvc.perform(MockMvcRequestBuilders.post("/api/student")
+				.content(asJsonString(new StudentDto("jim", 22)))
+				.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON))
+				.andDo(print())
 				.andExpect(status().isOk());
 	}
 	
@@ -79,9 +87,19 @@ public class StudentControllerApiTest {
 	@Test
 	public void getOneStudent() throws Exception {
 		StudentDto stOne = new StudentDto(12L, "name", 23);
-		
 		mockMvc.perform(MockMvcRequestBuilders.get("/api/student/{id}", stOne.getStudentId()).accept(MediaType.APPLICATION_JSON))
 				.andDo(print()).andExpect(status().isOk());
 	}
+	
+	
+	@Test
+	public void deleteStudent() throws Exception {
+		StudentDto stOne = new StudentDto(12L, "name", 23);
+		mockMvc.perform(MockMvcRequestBuilders.delete("/api/student/{id}", stOne.getStudentId()).accept(MediaType.APPLICATION_JSON))
+				.andDo(print()).andExpect(status().isOk());
+	}
+	
+		
+	
 	
 }
